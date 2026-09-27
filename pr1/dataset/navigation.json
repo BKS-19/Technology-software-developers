@@ -1,0 +1,18 @@
+[
+  {
+    "label": "О курсе",
+    "target": "about"
+  },
+  {
+    "label": "Направления",
+    "target": "tracks"
+  },
+  {
+    "label": "Расписание",
+    "target": "schedule"
+  },
+  {
+    "label": "Регистрация",
+    "target": "signup"
+  }
+]
