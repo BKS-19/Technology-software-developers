@@ -1,3 +1,8 @@
 body {
     background:lightblue;
 }
+.card{
+    border: 1px solid black;
+    padding: auto;
+    margin: auto;
+}
