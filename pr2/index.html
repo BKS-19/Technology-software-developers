@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Учебный каталог</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <p class="site-header__brand">Учебный каталог</p>
+    <nav aria-label="Основная навигация">
+      <ul class="site-nav">
+        <li><a href="#catalog">Каталог</a></li>
+        <li><a href="#info">О каталоге</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <aside class="filters" aria-label="Фильтры каталога">
+      <h2 class="filters__title">Фильтры</h2>
+      <form class="filters__form">
+        <fieldset class="filters__group">
+          <legend>Категория</legend>
+          <div class="filters__option">
+            <input type="checkbox" id="cat-books" name="category" value="books">
+            <label for="cat-books">Книги</label>
+          </div>
+          <div class="filters__option">
+            <input type="checkbox" id="cat-courses" name="category" value="courses">
+            <label for="cat-courses">Курсы</label>
+          </div>
+          <div class="filters__option">
+            <input type="checkbox" id="cat-tools" name="category" value="tools">
+            <label for="cat-tools">Инструменты</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="filters__group">
+          <legend>Цена, ₽</legend>
+          <div class="filters__field">
+            <label for="price-min">От</label>
+            <input type="number" id="price-min" name="price-min" min="575" max="2020" placeholder="575">
+          </div>
+          <div class="filters__field">
+            <label for="price-max">До</label>
+            <input type="number" id="price-max" name="price-max" min="575" max="2020" placeholder="2020">
+          </div>
+        </fieldset>
+
+        <div class="filters__field">
+          <label for="rating">Рейтинг от</label>
+          <select id="rating" name="rating">
+            <option value="">Любой</option>
+            <option value="4">4.0</option>
+            <option value="4.5">4.5</option>
+          </select>
+        </div>
+
+        <button type="submit" class="button">Применить</button>
+      </form>
+    </aside>
+
+    <section id="catalog" class="catalog" aria-labelledby="catalog-title">
+      <h1 id="catalog-title" class="catalog__title">Каталог товаров</h1>
+      <div class="catalog__grid">
+
+        <article class="product-card">
+          <img class="product-card__image" src="images/product-01.svg" alt="Обложка товара из категории Книги">
+          <h2 class="product-card__title">Учебный товар 1</h2>
+          <p class="product-card__category">Книги</p>
+          <p class="product-card__price">575 ₽</p>
+          <p class="product-card__rating">Рейтинг: 4.0</p>
+        </article>
+
+        <article class="product-card">
+          <img class="product-card__image" src="images/product-02.svg" alt="Обложка товара из категории Курсы">
+          <h2 class="product-card__title">Учебный товар 2</h2>
+          <p class="product-card__category">Курсы</p>
+          <p
