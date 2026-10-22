@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Учебный каталог</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/catalog.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -41,11 +42,11 @@
           <legend>Цена, ₽</legend>
           <div class="filters__field">
             <label for="price-min">От</label>
-            <input type="number" id="price-min" name="price-min" min="575" max="2020" placeholder="575">
+            <input type="number" id="price-min" name="price-min" min="575" max="2020" placeholder="575" aria-describedby="filter-error">
           </div>
           <div class="filters__field">
             <label for="price-max">До</label>
-            <input type="number" id="price-max" name="price-max" min="575" max="2020" placeholder="2020">
+            <input type="number" id="price-max" name="price-max" min="575" max="2020" placeholder="2020" aria-describedby="filter-error">
           </div>
         </fieldset>
 
@@ -58,14 +59,20 @@
           </select>
         </div>
 
-        <button type="submit" class="button">Применить</button>
+        <p id="filter-error" class="filters__error" role="alert" hidden></p>
+        <div class="filters__actions">
+          <button type="submit" class="button">Применить</button>
+          <button type="reset" class="button button--secondary">Сбросить</button>
+        </div>
       </form>
     </aside>
 
     <section id="catalog" class="catalog" aria-labelledby="catalog-title">
       <h1 id="catalog-title" class="catalog__title">Каталог товаров</h1>
+      <p id="catalog-count" class="catalog__count" role="status">Показано товаров: 18 из 18</p>
+      <p id="catalog-empty" class="catalog__empty" hidden>По выбранным фильтрам ничего не найдено. Измените условия или нажмите «Сбросить».</p>
       <div class="catalog__grid">
-        <article class="product-card" data-id="1">
+        <article class="product-card" data-id="1" data-category="books" data-price="575" data-rating="4.0">
           <img class="product-card__image" src="images/product-01.svg" alt="Обложка товара из категории Книги">
           <h2 class="product-card__title">Учебный товар 1</h2>
           <p class="product-card__category">Книги</p>
@@ -73,7 +80,7 @@
           <p class="product-card__rating">Рейтинг: 4.0</p>
         </article>
 
-        <article class="product-card" data-id="2">
+        <article class="product-card" data-id="2" data-category="courses" data-price="660" data-rating="4.2">
           <img class="product-card__image" src="images/product-02.svg" alt="Обложка товара из категории Курсы">
           <h2 class="product-card__title">Учебный товар 2</h2>
           <p class="product-card__category">Курсы</p>
@@ -81,7 +88,7 @@
           <p class="product-card__rating">Рейтинг: 4.2</p>
         </article>
 
-        <article class="product-card" data-id="3">
+        <article class="product-card" data-id="3" data-category="tools" data-price="745" data-rating="4.4">
           <img class="product-card__image" src="images/product-03.svg" alt="Обложка товара из категории Инструменты">
           <h2 class="product-card__title">Учебный товар 3</h2>
           <p class="product-card__category">Инструменты</p>
@@ -89,7 +96,7 @@
           <p class="product-card__rating">Рейтинг: 4.4</p>
         </article>
 
-        <article class="product-card" data-id="4">
+        <article class="product-card" data-id="4" data-category="books" data-price="830" data-rating="4.6">
           <img class="product-card__image" src="images/product-01.svg" alt="Обложка товара из категории Книги">
           <h2 class="product-card__title">Учебный товар 4</h2>
           <p class="product-card__category">Книги</p>
@@ -97,7 +104,7 @@
           <p class="product-card__rating">Рейтинг: 4.6</p>
         </article>
 
-        <article class="product-card" data-id="5">
+        <article class="product-card" data-id="5" data-category="courses" data-price="915" data-rating="4.8">
           <img class="product-card__image" src="images/product-02.svg" alt="Обложка товара из категории Курсы">
           <h2 class="product-card__title">Учебный товар 5</h2>
           <p class="product-card__category">Курсы</p>
@@ -105,7 +112,7 @@
           <p class="product-card__rating">Рейтинг: 4.8</p>
         </article>
 
-        <article class="product-card" data-id="6">
+        <article class="product-card" data-id="6" data-category="tools" data-price="1000" data-rating="3.8">
           <img class="product-card__image" src="images/product-03.svg" alt="Обложка товара из категории Инструменты">
           <h2 class="product-card__title">Учебный товар 6</h2>
           <p class="product-card__category">Инструменты</p>
@@ -113,7 +120,7 @@
           <p class="product-card__rating">Рейтинг: 3.8</p>
         </article>
 
-        <article class="product-card" data-id="7">
+        <article class="product-card" data-id="7" data-category="books" data-price="1085" data-rating="4.0">
           <img class="product-card__image" src="images/product-01.svg" alt="Обложка товара из категории Книги">
           <h2 class="product-card__title">Учебный товар 7</h2>
           <p class="product-card__category">Книги</p>
@@ -121,7 +128,7 @@
           <p class="product-card__rating">Рейтинг: 4.0</p>
         </article>
 
-        <article class="product-card" data-id="8">
+        <article class="product-card" data-id="8" data-category="courses" data-price="1170" data-rating="4.2">
           <img class="product-card__image" src="images/product-02.svg" alt="Обложка товара из категории Курсы">
           <h2 class="product-card__title">Учебный товар 8</h2>
           <p class="product-card__category">Курсы</p>
@@ -129,7 +136,7 @@
           <p class="product-card__rating">Рейтинг: 4.2</p>
         </article>
 
-        <article class="product-card" data-id="9">
+        <article class="product-card" data-id="9" data-category="tools" data-price="1255" data-rating="4.4">
           <img class="product-card__image" src="images/product-03.svg" alt="Обложка товара из категории Инструменты">
           <h2 class="product-card__title">Учебный товар 9</h2>
           <p class="product-card__category">Инструменты</p>
@@ -137,7 +144,7 @@
           <p class="product-card__rating">Рейтинг: 4.4</p>
         </article>
 
-        <article class="product-card" data-id="10">
+        <article class="product-card" data-id="10" data-category="books" data-price="1340" data-rating="4.6">
           <img class="product-card__image" src="images/product-01.svg" alt="Обложка товара из категории Книги">
           <h2 class="product-card__title">Учебный товар 10</h2>
           <p class="product-card__category">Книги</p>
@@ -145,7 +152,7 @@
           <p class="product-card__rating">Рейтинг: 4.6</p>
         </article>
 
-        <article class="product-card" data-id="11">
+        <article class="product-card" data-id="11" data-category="courses" data-price="1425" data-rating="4.8">
           <img class="product-card__image" src="images/product-02.svg" alt="Обложка товара из категории Курсы">
           <h2 class="product-card__title">Учебный товар 11</h2>
           <p class="product-card__category">Курсы</p>
@@ -153,7 +160,7 @@
           <p class="product-card__rating">Рейтинг: 4.8</p>
         </article>
 
-        <article class="product-card" data-id="12">
+        <article class="product-card" data-id="12" data-category="tools" data-price="1510" data-rating="3.8">
           <img class="product-card__image" src="images/product-03.svg" alt="Обложка товара из категории Инструменты">
           <h2 class="product-card__title">Учебный товар 12</h2>
           <p class="product-card__category">Инструменты</p>
@@ -161,7 +168,7 @@
           <p class="product-card__rating">Рейтинг: 3.8</p>
         </article>
 
-        <article class="product-card" data-id="13">
+        <article class="product-card" data-id="13" data-category="books" data-price="1595" data-rating="4.0">
           <img class="product-card__image" src="images/product-01.svg" alt="Обложка товара из категории Книги">
           <h2 class="product-card__title">Учебный товар 13</h2>
           <p class="product-card__category">Книги</p>
@@ -169,7 +176,7 @@
           <p class="product-card__rating">Рейтинг: 4.0</p>
         </article>
 
-        <article class="product-card" data-id="14">
+        <article class="product-card" data-id="14" data-category="courses" data-price="1680" data-rating="4.2">
           <img class="product-card__image" src="images/product-02.svg" alt="Обложка товара из категории Курсы">
           <h2 class="product-card__title">Учебный товар 14</h2>
           <p class="product-card__category">Курсы</p>
@@ -177,7 +184,7 @@
           <p class="product-card__rating">Рейтинг: 4.2</p>
         </article>
 
-        <article class="product-card" data-id="15">
+        <article class="product-card" data-id="15" data-category="tools" data-price="1765" data-rating="4.4">
           <img class="product-card__image" src="images/product-03.svg" alt="Обложка товара из категории Инструменты">
           <h2 class="product-card__title">Учебный товар 15</h2>
           <p class="product-card__category">Инструменты</p>
@@ -185,7 +192,7 @@
           <p class="product-card__rating">Рейтинг: 4.4</p>
         </article>
 
-        <article class="product-card" data-id="16">
+        <article class="product-card" data-id="16" data-category="books" data-price="1850" data-rating="4.6">
           <img class="product-card__image" src="images/product-01.svg" alt="Обложка товара из категории Книги">
           <h2 class="product-card__title">Учебный товар 16</h2>
           <p class="product-card__category">Книги</p>
@@ -193,7 +200,7 @@
           <p class="product-card__rating">Рейтинг: 4.6</p>
         </article>
 
-        <article class="product-card" data-id="17">
+        <article class="product-card" data-id="17" data-category="courses" data-price="1935" data-rating="4.8">
           <img class="product-card__image" src="images/product-02.svg" alt="Обложка товара из категории Курсы">
           <h2 class="product-card__title">Учебный товар 17</h2>
           <p class="product-card__category">Курсы</p>
@@ -201,7 +208,7 @@
           <p class="product-card__rating">Рейтинг: 4.8</p>
         </article>
 
-        <article class="product-card" data-id="18">
+        <article class="product-card" data-id="18" data-category="tools" data-price="2020" data-rating="3.8">
           <img class="product-card__image" src="images/product-03.svg" alt="Обложка товара из категории Инструменты">
           <h2 class="product-card__title">Учебный товар 18</h2>
           <p class="product-card__category">Инструменты</p>

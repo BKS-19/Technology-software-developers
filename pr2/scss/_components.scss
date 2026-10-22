@@ -30,6 +30,16 @@
 .filters {
   @include m.panel;
 
+  &__actions {
+    display: grid;
+    gap: f.space(0.5);
+  }
+
+  &__error {
+    margin: 0 0 f.space();
+    color: v.$error;
+  }
+
   &__title {
     margin: 0 0 f.space();
     font-size: 20px;
@@ -86,11 +96,30 @@
   &:hover {
     background: color.scale(v.$accent, $lightness: -15%);
   }
+
+  &--secondary {
+    background: v.$background;
+    color: v.$text;
+
+    &:hover {
+      background: color.scale(v.$background, $lightness: -5%);
+    }
+  }
 }
 
 .catalog {
   &__title {
     margin: 0 0 f.space();
+  }
+
+  &__count {
+    margin: 0 0 f.space();
+    color: v.$muted;
+  }
+
+  &__empty {
+    @include m.panel;
+    margin: 0;
   }
 
   &__grid {

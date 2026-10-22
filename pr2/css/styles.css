@@ -114,6 +114,14 @@ button:focus-visible {
   background: #ffffff;
   border-radius: 14px;
 }
+.filters__actions {
+  display: grid;
+  gap: 8px;
+}
+.filters__error {
+  margin: 0 0 16px;
+  color: #b42318;
+}
 .filters__title {
   margin: 0 0 16px;
   font-size: 20px;
@@ -163,9 +171,26 @@ button:focus-visible {
 .button:hover {
   background: rgb(1.9047619048%, 23.3333333333%, 98.0952380952%);
 }
+.button--secondary {
+  background: #f5f7fb;
+  color: #1f2937;
+}
+.button--secondary:hover {
+  background: rgb(89.1316526611%, 91.3053221289%, 95.6526610644%);
+}
 
 .catalog__title {
   margin: 0 0 16px;
+}
+.catalog__count {
+  margin: 0 0 16px;
+  color: #6b7280;
+}
+.catalog__empty {
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 14px;
+  margin: 0;
 }
 .catalog__grid {
   display: grid;
