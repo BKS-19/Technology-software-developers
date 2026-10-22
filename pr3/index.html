@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Панель заявок — Учебный сервис</title>
+  <link rel="icon" type="image/svg+xml" href="data/assets/avatar.svg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/custom.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body class="bg-body-tertiary">
+  <a class="visually-hidden-focusable position-absolute bg-white p-3" href="#main">К основному содержимому</a>
+
+  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark" aria-label="Основная навигация">
+    <div class="container py-2">
+      <a class="navbar-brand fw-semibold" href="#overview">Учебный сервис</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Открыть меню">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="main-nav">
+        <ul class="navbar-nav gap-lg-2 me-auto">
+          <li class="nav-item"><a class="nav-link" href="#overview">Обзор</a></li>
+          <li class="nav-item"><a class="nav-link" href="#activity">Операции</a></li>
+          <li class="nav-item"><a class="nav-link" href="#notifications">Уведомления</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2 py-2 py-lg-0 text-white">
+          <img class="rounded-circle" src="data/assets/avatar.svg" alt="Аватар администратора" width="36" height="36">
+          <span class="small">Администратор</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="container py-4 py-lg-5">
+    <div id="load-error" class="alert alert-danger" role="alert" hidden>
+      <p id="load-error-message" class="mb-2"></p>
+      <button id="retry-load" class="btn btn-outline-danger btn-sm" type="button">Повторить загрузку</button>
+    </div>
+    <p id="loading" class="text-body-secondary" role="status">
+      <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Загрузка данных…
+    </p>
+    <noscript><p class="alert alert-warning">Для загрузки панели включите JavaScript.</p></noscript>
+
+    <section id="overview" class="mb-4" aria-labelledby="overview-title">
+      <div class="mb-4">
+        <p class="text-primary fw-semibold small mb-1">Панель управления</p>
+        <h1 id="overview-title" class="h2 fw-bold mb-2">Обзор работы сервиса</h1>
+        <p class="text-body-secondary mb-0">Показатели, операции и уведомления в одном месте.</p>
+      </div>
+      <div id="metrics" class="row g-3" aria-live="polite"></div>
+    </section>
+
+    <div class="row g-4 align-items-start">
+      <section id="activity" class="col-12 col-xl-8" aria-labelledby="activity-title">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-3 p-md-4">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+              <h2 id="activity-title" class="h5 mb-0">Последние операции</h2>
+              <span id="rows-count" class="badge text-bg-light" role="status">Показано: 0 из 0</span>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-middle mb-0">
+                <caption class="visually-hidden">Операции сервиса и их текущие статусы</caption>
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Операция</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Ответственный</th>
+                  </tr>
+                </thead>
+                <tbody id="activity-rows"></tbody>
+              </table>
+            </div>
+            <p id="rows-empty" class="text-body-secondary text-center py-4 mb-0" hidden>Операций пока нет.</p>
+          </div>
+        </div>
+      </section>
+
+      <aside class="col-12 col-xl-4" aria-label="Сводка и уведомления">
+        <figure class="card border-0 shadow-sm mb-4">
+          <div class="card-body p-3 p-md-4">
+            <h2 class="h5 mb-3">Активность сервиса</h2>
+            <img src="data/assets/chart.svg" class="img-fluid w-100" alt="Демонстрационная диаграмма активности">
+            <figcaption class="small text-body-secondary mt-3">Учебная диаграмма для обзора активности.</figcaption>
+          </div>
+        </figure>
+
+        <section id="notifications" class="card border-0 shadow-sm" aria-labelledby="notifications-title">
+          <div class="card-body p-3 p-md-4">
+            <h2 id="notifications-title" class="h5 mb-3">Уведомления</h2>
+            <ul id="notifications-list" class="list-group list-group-flush"></ul>
+            <p id="notifications-empty" class="text-body-secondary mb-0" hidden>Уведомлений пока нет.</p>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="container py-4 text-body-secondary small">
+    © 2026 Константин Бельский. Практическая работа №3, ТРПО.
+  </footer>
+
+  <template id="metric-template">
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <h2 class="h6 text-body-secondary mb-2" data-metric-title></h2>
+          <p class="display-6 fw-semibold mb-0" data-metric-value></p>
+        </div>
+      </div>
+    </div>
+  </template>
+</body>
+</html>

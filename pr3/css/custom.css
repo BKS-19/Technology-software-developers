@@ -1,0 +1,15 @@
+body {
+  overflow-wrap: anywhere;
+}
+
+section[id] {
+  scroll-margin-top: 1.5rem;
+}
+
+.table-responsive .table {
+  min-width: 560px;
+}
+
+[hidden] {
+  display: none !important;
+}
