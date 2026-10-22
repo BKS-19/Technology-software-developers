@@ -242,8 +242,8 @@ form.addEventListener('submit', event => {
   searchInput.value = '';
   statusFilter.value = '';
   renderRows();
+  modalElement.addEventListener('hidden.bs.modal', () => showNotification('success'), { once: true });
   bootstrap.Modal.getOrCreateInstance(modalElement).hide();
-  showNotification('success');
 });
 
 modalElement.addEventListener('shown.bs.modal', () => actionInput.focus());

@@ -4,3 +4,4 @@
 
 - [Практическая работа №1](pr1/README.md)
 - [Практическая работа №2 — CSS и SCSS](pr2/README.md)
+- [Практическая работа №3 — Bootstrap и JavaScript](pr3/README.md)
