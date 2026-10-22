@@ -1,0 +1,15 @@
+@use "variables" as v;
+@use "functions" as f;
+
+@mixin container {
+  width: 100%;
+  max-width: v.$container-width;
+  margin: f.space(2) auto;
+  padding: 0 f.space();
+}
+
+@mixin panel {
+  padding: f.space();
+  background: v.$surface;
+  border-radius: v.$radius;
+}

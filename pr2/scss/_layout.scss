@@ -1,0 +1,62 @@
+@use "variables" as v;
+@use "functions" as f;
+@use "mixins" as m;
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: f.space();
+  padding: f.space() f.space(2);
+  background: v.$header-background;
+  color: v.$surface;
+}
+
+.layout {
+  @include m.container;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  grid-template-areas:
+    "filters catalog"
+    "info info";
+  gap: f.space(1.5);
+}
+
+.filters {
+  grid-area: filters;
+  align-self: start;
+  min-width: 0;
+}
+
+.catalog {
+  grid-area: catalog;
+  min-width: 0;
+}
+
+.info {
+  grid-area: info;
+  min-width: 0;
+}
+
+.site-footer {
+  padding: f.space(1.5);
+  text-align: center;
+  color: v.$muted;
+}
+
+@media (max-width: v.$tablet) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "filters"
+      "catalog"
+      "info";
+  }
+}
+
+@media (max-width: v.$mobile) {
+  .site-header {
+    padding: f.space(0.75) f.space();
+  }
+}

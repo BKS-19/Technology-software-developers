@@ -1,0 +1,35 @@
+@use "variables" as v;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: v.$text;
+  background: v.$background;
+  overflow-wrap: anywhere;
+}
+
+a {
+  color: v.$accent;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 3px solid v.$accent;
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}

@@ -1,0 +1,5 @@
+@use "variables" as v;
+
+@function space($step: 1) {
+  @return v.$space * $step;
+}
