@@ -44,10 +44,13 @@
     <noscript><p class="alert alert-warning">Для загрузки панели включите JavaScript.</p></noscript>
 
     <section id="overview" class="mb-4" aria-labelledby="overview-title">
-      <div class="mb-4">
-        <p class="text-primary fw-semibold small mb-1">Панель управления</p>
-        <h1 id="overview-title" class="h2 fw-bold mb-2">Обзор работы сервиса</h1>
-        <p class="text-body-secondary mb-0">Показатели, операции и уведомления в одном месте.</p>
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+        <div>
+          <p class="text-primary fw-semibold small mb-1">Панель управления</p>
+          <h1 id="overview-title" class="h2 fw-bold mb-2">Обзор работы сервиса</h1>
+          <p class="text-body-secondary mb-0">Показатели, операции и уведомления в одном месте.</p>
+        </div>
+        <button id="add-record" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#record-modal" disabled>Добавить запись</button>
       </div>
       <div id="metrics" class="row g-3" aria-live="polite"></div>
     </section>
@@ -102,6 +105,59 @@
   <footer class="container py-4 text-body-secondary small">
     © 2026 Константин Бельский. Практическая работа №3, ТРПО.
   </footer>
+
+  <div class="modal fade" id="record-modal" tabindex="-1" aria-labelledby="record-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="record-modal-title">Новая операция</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <form id="record-form" novalidate>
+          <div class="modal-body">
+            <p class="small text-body-secondary">Запись сохранится до обновления страницы. Все поля обязательны.</p>
+            <p id="form-error" class="alert alert-warning" role="alert" hidden></p>
+            <div class="mb-3">
+              <label for="record-action" class="form-label">Название операции</label>
+              <input id="record-action" name="action" class="form-control" type="text" minlength="3" maxlength="80" aria-describedby="action-help action-error" required>
+              <div id="action-help" class="form-text">От 3 до 80 символов.</div>
+              <div id="action-error" class="invalid-feedback">Введите название длиной от 3 до 80 символов.</div>
+              <div class="valid-feedback">Название заполнено.</div>
+            </div>
+            <div class="mb-3">
+              <label for="record-email" class="form-label">Email ответственного</label>
+              <input id="record-email" name="email" class="form-control" type="email" maxlength="120" autocomplete="email" placeholder="name@example.com" aria-describedby="email-error" required>
+              <div id="email-error" class="invalid-feedback">Введите корректный email, например name@example.com.</div>
+              <div class="valid-feedback">Email заполнен корректно.</div>
+            </div>
+            <div>
+              <label for="record-status" class="form-label">Статус</label>
+              <select id="record-status" name="status" class="form-select" aria-describedby="status-error" required>
+                <option value="Новая">Новая</option>
+                <option value="В работе">В работе</option>
+                <option value="Готово">Готово</option>
+              </select>
+              <div id="status-error" class="invalid-feedback">Выберите статус операции.</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="notification-toast" class="toast" role="status" aria-live="polite" aria-atomic="true">
+      <div class="toast-header">
+        <strong id="toast-title" class="me-auto">Уведомление</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть уведомление"></button>
+      </div>
+      <div id="toast-message" class="toast-body"></div>
+    </div>
+  </div>
 
   <template id="metric-template">
     <div class="col-12 col-sm-6 col-xl-3">
