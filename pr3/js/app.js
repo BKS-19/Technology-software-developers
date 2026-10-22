@@ -19,6 +19,11 @@ const formError = document.getElementById('form-error');
 const toastElement = document.getElementById('notification-toast');
 const toastTitle = document.getElementById('toast-title');
 const toastMessage = document.getElementById('toast-message');
+const filtersForm = document.getElementById('filters-form');
+const searchInput = document.getElementById('operation-search');
+const statusFilter = document.getElementById('status-filter');
+const notificationsSwitch = document.getElementById('notifications-enabled');
+const notificationsState = document.getElementById('notifications-state');
 const statusClasses = {
   'Новая': 'text-bg-primary',
   'В работе': 'text-bg-warning',
@@ -34,6 +39,7 @@ const notificationClasses = {
 let rows = [];
 let notifications = [];
 let dataReady = false;
+let notificationsEnabled = true;
 
 async function readJSON(file) {
   const response = await fetch(file);
@@ -76,8 +82,13 @@ function renderMetrics(metrics) {
 
 function renderRows() {
   rowsContainer.replaceChildren();
+  const query = searchInput.value.trim().toLocaleLowerCase('ru');
+  const filteredRows = rows.filter(row => {
+    const text = `${row.action} ${row.email || ''}`.toLocaleLowerCase('ru');
+    return text.includes(query) && (!statusFilter.value || row.status === statusFilter.value);
+  });
 
-  for (const row of rows) {
+  for (const row of filteredRows) {
     const item = document.createElement('tr');
     item.dataset.id = row.id;
     const id = document.createElement('th');
@@ -96,8 +107,11 @@ function renderRows() {
     rowsContainer.append(item);
   }
 
-  rowsCount.textContent = `Показано: ${rows.length} из ${rows.length}`;
-  rowsEmpty.hidden = rows.length > 0;
+  rowsCount.textContent = `Показано: ${filteredRows.length} из ${rows.length}`;
+  rowsEmpty.textContent = rows.length === 0
+    ? 'Операций пока нет. Добавьте первую запись.'
+    : 'Ничего не найдено. Измените условия или нажмите «Сбросить».';
+  rowsEmpty.hidden = filteredRows.length > 0;
 }
 
 function renderNotifications() {
@@ -110,6 +124,7 @@ function renderNotifications() {
     button.type = 'button';
     button.className = `btn btn-link p-0 text-start text-decoration-none ${notificationClasses[notification.type]}`;
     button.textContent = notification.text;
+    button.disabled = !notificationsEnabled;
     button.addEventListener('click', () => showNotification(notification.type));
     item.append(button);
     notificationsList.append(item);
@@ -121,6 +136,7 @@ function renderNotifications() {
 async function loadData() {
   dataReady = false;
   addButton.disabled = true;
+  for (const control of filtersForm.elements) control.disabled = true;
   loading.hidden = false;
   loadError.hidden = true;
   retryButton.disabled = true;
@@ -142,6 +158,7 @@ async function loadData() {
     renderNotifications();
     dataReady = true;
     addButton.disabled = false;
+    for (const control of filtersForm.elements) control.disabled = false;
   } catch (error) {
     rows = [];
     notifications = [];
@@ -164,7 +181,7 @@ async function loadData() {
 function showNotification(type) {
   const notification = notifications.find(message => message.type === type);
 
-  if (!notification || !window.bootstrap) return;
+  if (!notification || !notificationsEnabled || !window.bootstrap) return;
 
   toastTitle.textContent = type === 'success' ? 'Готово' : 'Внимание';
   toastTitle.className = `me-auto ${notificationClasses[type]}`;
@@ -180,6 +197,10 @@ function validateField(field) {
 
   if (field === emailInput) {
     field.value = field.value.trim();
+  }
+
+  if (field === statusInput) {
+    field.setCustomValidity(Object.hasOwn(statusClasses, field.value) ? '' : 'Выберите статус.');
   }
 
   const valid = field.checkValidity();
@@ -218,6 +239,8 @@ form.addEventListener('submit', event => {
     status: statusInput.value,
     email: emailInput.value
   });
+  searchInput.value = '';
+  statusFilter.value = '';
   renderRows();
   bootstrap.Modal.getOrCreateInstance(modalElement).hide();
   showNotification('success');
@@ -235,6 +258,37 @@ modalElement.addEventListener('hidden.bs.modal', () => {
     field.removeAttribute('aria-invalid');
   }
 });
+
+filtersForm.addEventListener('input', renderRows);
+filtersForm.addEventListener('submit', event => event.preventDefault());
+filtersForm.addEventListener('reset', () => {
+  searchInput.value = '';
+  statusFilter.value = '';
+  renderRows();
+});
+
+notificationsSwitch.addEventListener('change', () => {
+  notificationsEnabled = notificationsSwitch.checked;
+  notificationsState.textContent = notificationsEnabled ? 'Включены' : 'Выключены';
+
+  if (!notificationsEnabled && window.bootstrap) {
+    bootstrap.Toast.getInstance(toastElement)?.hide();
+  }
+
+  for (const button of notificationsList.querySelectorAll('button')) {
+    button.disabled = !notificationsEnabled;
+  }
+});
+
+for (const link of document.querySelectorAll('#main-nav .nav-link')) {
+  link.addEventListener('click', () => {
+    const toggler = document.querySelector('.navbar-toggler');
+
+    if (window.bootstrap && getComputedStyle(toggler).display !== 'none') {
+      bootstrap.Collapse.getOrCreateInstance(document.getElementById('main-nav'), { toggle: false }).hide();
+    }
+  });
+}
 
 retryButton.addEventListener('click', loadData);
 loadData();
