@@ -1,0 +1,7 @@
+.DS_Store
+node_modules/
+*.css.map
+npm-debug.log*
+.idea/
+.vscode/
+~$*
